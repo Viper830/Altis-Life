@@ -72,6 +72,19 @@ class CfgSounds
 		sound[] = {"\sounds\02_Master_plan.ogg", 0.75, 1};
 		titles[] = {};
 	};
+	class car_lock
+  	{
+		name = "car_lock";
+    		sound[] = {"\sounds\car_lock.ogg", 1.0, 1};
+    		titles[] = {};
+  	};
+ 	class car_unlock
+  	{
+		name = "car_unlock";
+    		sound[] = {"\sounds\car_unlock.ogg", 1.0, 1};
+    		titles[] = {};
+  	};
+
 };
 
 class CfgDebriefing

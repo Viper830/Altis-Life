@@ -237,6 +237,7 @@ switch (_code) do {
 							[[_veh,0],"life_fnc_lockVehicle",_veh,false] call life_fnc_MP;
 						};
 						systemChat localize "STR_MISC_VehUnlock";
+						[[_veh],"life_fnc_UnLockCarSound",nil,true] spawn life_fnc_MP;
 					} else {
 						if(local _veh) then {
 							_veh lock 2;
@@ -244,6 +245,7 @@ switch (_code) do {
 							[[_veh,2],"life_fnc_lockVehicle",_veh,false] call life_fnc_MP;
 						};	
 						systemChat localize "STR_MISC_VehLock";
+						[[_veh],"life_fnc_LockCarSound",nil,true] spawn life_fnc_MP;
 					};
 				};
 			};

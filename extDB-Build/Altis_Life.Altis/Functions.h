@@ -190,6 +190,8 @@ class Life_Client_Core
 		class loadGear {};
 		class stripDownPlayer {};
 		class nearATM {};
+		class UnlockCarSound {};
+		class LockCarSound {};
 	};
 	
 	class Network
