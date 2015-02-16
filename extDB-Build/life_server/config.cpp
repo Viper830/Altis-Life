@@ -30,10 +30,10 @@ class CfgServerSettings
 		/*MISC settings*/
 		MISC = false; //Enabled? Allows you to use certain features that are not really related to the database for extDB
 		/*Logging Settings*/
-		LOG = false; //Custom Logging Enabled?
+		LOG = true; //Custom Logging Enabled?
 		LOG_Settings[] = {{"HACKER","hacker.log"},{"LOG2","debug.log"}}; //First Selection = ID | Second Selection = Log File
 		/*Debug*/
-		MySQL_Query = false; //Log queries? Only set this to true if you are developing.
+	        MySQL_Query = true; //Log queries? Only set this to true if you are developing.
 	};
 };
 
