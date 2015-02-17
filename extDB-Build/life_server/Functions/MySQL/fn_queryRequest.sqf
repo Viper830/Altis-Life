@@ -11,7 +11,7 @@
 	ARRAY - If array has 0 elements it should be handled as an error in client-side files.
 	STRING - The request had invalid handles or an unknown error and is logged to the RPT.
 */
-private["_uid","_side","_query","_return","_queryResult","_qResult","_handler","_thread","_tickTime","_loops","_returnCount"];
+private["_uid","_side","_query","_return","_queryResult","_qResult","_handler","_thread","_tickTime","_loops","_returnCount","_playerPos","_deadstatus"];
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _ownerID = [_this,2,ObjNull,[ObjNull]] call BIS_fnc_param;
@@ -93,7 +93,41 @@ switch (_side) do {
 	};
 };
 
+/* I'm not really sure what this does right now but it skips a position in the array.
 _keyArr = missionNamespace getVariable [format["%1_KEYS_%2",_uid,_side],[]];
 _queryResult set[12,_keyArr];
 
+/*
+ * Really, the above is such a mess to detangle, that
+ * extra columns are not easily added.  This whole
+ * mess needs to be reworked.  Until then, let's just
+ * do a second query for the extra values we need.
+ */
+_returnCount = 2;
+_query = format["SELECT alive, position FROM players WHERE playerid='%1'",_uid];
+
+waitUntil{sleep (random 0.3); !DB_Async_Active};
+_tickTime = diag_tickTime;
+_deadstatus = [_query,2] call DB_fnc_asyncCall;
+
+if((EQUAL(EXTDB_SETTINGS("MySQL_Query"),1))) then {
+	["diag_log",[
+		"------------- Client Query Request -------------",
+		format["QUERY: %1",_query],
+		format["Time to complete: %1 (in seconds)",(diag_tickTime - _tickTime)],
+		format["Result: %1",_deadstatus],
+		"------------------------------------------------"
+	]] call TON_fnc_logIt;
+};
+
+
+/* Let's use _queryResult,13 for the player position */
+_playerpos = _deadstatus select 1;
+_playerpos = call compile format["%1", _playerpos];
+_queryResult set[13,_playerpos];		
+
+/* Position 14 becomes the player's living status */
+_queryResult set[14,([_deadstatus select 0,1] call DB_fnc_bool)];
+
+/* Return the data back to the client */
 [_queryResult,"SOCK_fnc_requestReceived",_ownerID,false] call life_fnc_MP;

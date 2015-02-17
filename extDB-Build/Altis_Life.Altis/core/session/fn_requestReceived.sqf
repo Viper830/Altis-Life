@@ -75,8 +75,14 @@ switch(playerSide) do {
 	};
 };
 
+/* Vehcile/Garage information */
 if(count (SEL(_this,12)) > 0) then {
 	{life_vehicles pushBack _x;} foreach (SEL(_this,12));
 };
+
+/* Player's living status and last known position */
+last_known_position = _this select 13;
+life_is_alive = _this select 14;
+
 
 life_session_completed = true;

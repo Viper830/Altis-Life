@@ -56,6 +56,9 @@ life_is_arrested = false;
 life_delivery_in_progress = false;
 life_thirst = 100;
 life_hunger = 100;
+life_is_alive = false;
+last_known_position = [];
+diag_log format ["configuration.sqf: last_known_position currently unknown"];
 CASH = 0;
 
 life_istazed = false;
