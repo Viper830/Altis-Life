@@ -5,3 +5,6 @@
 *.bat
 *.exe
 *~
+*.iml
+.idea
+*.db
